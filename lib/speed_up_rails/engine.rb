@@ -19,7 +19,8 @@ module SpeedUpRails
     # Default adapter
     config.speed_up_rails.adapter = :memory
 
-    config.speed_up_rails.collectors = [:request, :sql]
+    config.speed_up_rails.collectors = [:request, :queries]
+    config.speed_up_rails.collectors += [:bullet, :rubyprof] if Rails.env.development?
 
     config.speed_up_rails.show_bar = true
 
@@ -43,10 +44,6 @@ module SpeedUpRails
 
     initializer "speed_up_rails.add_middleware" do |app|
       app.middleware.use 'SpeedUpRails::Middleware'
-    end
-
-    initializer "speed_up_rails.assets.precompile" do |app|
-      # app.config.assets.precompile += %w(admin.css admin.js)
     end
 
   end

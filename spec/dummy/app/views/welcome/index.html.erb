@@ -1,0 +1,21 @@
+Hello, this application is used by this users:
+<table>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.posts.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <thead>
+    <tr>
+      <th>E-mail</th>
+      <th>Posts count</th>
+    </tr>
+  </thead>
+</table>
+
+U can try to get an <%= link_to 'error', '/error' %>
+
+Or see n+1 queries <%= link_to 'n+1', posts_path %>

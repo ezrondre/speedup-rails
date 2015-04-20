@@ -1,0 +1,8 @@
+<%= image_tag('speed_up_rails/database.ico', width: 18) %><%= data.count %> queries
+<% content_for(:speed_up_additional_bars) do %>
+<div class="queries">
+  <% data.each do |query| %>
+    <div><%= query[:query] %></div>
+  <% end %>
+</div>
+<% end %>

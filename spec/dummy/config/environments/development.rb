@@ -39,5 +39,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  config.speed_up_rails.adapter = :influxdb, { database: 'speeduprails', username: 'ezrondre', password: 'agent', host: 'sandbox.influxdb.com' }
+  config.speed_up_rails.adapter = :memory
+  # config.speed_up_rails.adapter = :influxdb, { database: 'speeduprails', username: 'ezrondre', password: 'agent', host: 'sandbox.influxdb.com' }
+  # config.speed_up_rails.adapter = :server, { url: 'http://localhost:8080' }
 end

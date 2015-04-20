@@ -37,7 +37,11 @@ module SpeedUpRails
 
   def self.enabled?
     # ['development', 'staging'].include?(Rails.env)
-    !defined?(Rails::Console) && File.basename($0) != "rake"
+    !@temporary_disabled && !defined?(Rails::Console) && File.basename($0) != "rake"
+  end
+
+  def self.temporary_disabled=(val)
+    @temporary_disabled = !!val
   end
 
   def self.setup_request(request_id)
@@ -67,6 +71,10 @@ module SpeedUpRails
 
   def self.prepare_collectors
     @collectors = @collector_classes.map{|col_kls| col_kls.new }
+  end
+
+  def self.collectors
+    @collectors
   end
 
 end

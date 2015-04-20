@@ -1,0 +1,63 @@
+<style type="text/css">
+  #speed_up_rails_bar .speed_up_main_bar,
+  #speed_up_rails_bar .additional_info > div
+  {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    min-width: 250px;
+    border: 1px solid #c9c9c9;
+    background-color: #EDEAE0;
+    border-radius: 3px;
+    font-size: 14px;
+    overflow: auto;
+    font: normal normal 12px/21px Tahoma, sans-serif;
+  }
+  #speed_up_rails_bar > ul { list-style: none; clear: left; margin: 0; padding: 0; margin-left: 4px; }
+  #speed_up_rails_bar > ul > li { float: left; overflow: visible; }
+  #speed_up_rails_bar li > span { padding: 0 4px; }
+  #speed_up_rails_bar img {
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    margin-right: 3px;
+  }
+  #speed_up_rails_bar .additional_info > div {
+    display: none;
+  }
+</style>
+<ul class="speed_up_main_bar">
+  <% @collectors.each do |col| %>
+    <li>
+      <span class="speed_up_rails_<%= col.key %>" data-key="<%= col.key %>">
+        <%= render "speed_up_rails/collectors/#{col.key}", data: @request[col.key], key: col.key if col.render? %>
+      </span>
+    </li>
+  <% end %>
+</ul>
+<div class="additional_info">
+  <% if content_for?(:speed_up_additional_bars) %>
+    <%= yield :speed_up_additional_bars %>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  elements = document.querySelectorAll("#speed_up_rails_bar .speed_up_main_bar > li > span");
+  console.log( elements );
+  function handlerOver() {
+    elem = document.querySelector('#speed_up_rails_bar .additional_info .' + this.dataset.key );
+    if( elem ) {
+      elem.style.display = 'block';
+      elem.style.bottom = '' + (this.offsetHeight + 8) + 'px';
+    }
+  }
+  function handlerOut() {
+    elem = document.querySelector('#speed_up_rails_bar .additional_info .' + this.dataset.key );
+    if( elem )
+      elem.style.display = 'none';
+  }
+  for( i = 0; i < elements.length; ++i) {
+    elements[i].onmouseover = handlerOver;
+    elements[i].onmouseout = handlerOut;
+  }
+</script>
