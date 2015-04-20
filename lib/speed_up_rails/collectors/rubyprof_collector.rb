@@ -4,6 +4,8 @@ module SpeedUpRails
 
       def initialize
         require 'ruby-prof'
+        @results_dir = Rails.root.join('tmp', 'rubyprof')
+        Dir.mkdir( @results_dir ) unless File.directory?(@results_dir)
         super
       end
 
@@ -19,20 +21,16 @@ module SpeedUpRails
         {}
       end
 
-      def render?
-        false
-      end
-
       def setup_subscribes
         before_request do
-          RubyProf.start
+          RubyProf.start if enabled?
         end
         after_request do
-          result = RubyProf.stop
+          result = RubyProf.stop if enabled?
 
           # Print a flat profile to text
-          printer = RubyProf::CallStackPrinter.new(result)
-          ::File.open(Rails.root.join( 'tmp', SpeedUpRails.request.id ), 'wb') do |file|
+          printer = RubyProf::GraphHtmlPrinter.new(result)
+          ::File.open(@results_dir.join( SpeedUpRails.request.id ), 'wb') do |file|
             printer.print(file)
           end
         end

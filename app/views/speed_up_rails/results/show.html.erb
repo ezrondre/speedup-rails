@@ -1,66 +1,31 @@
-<style type="text/css">
-  #speed_up_rails_bar .speed_up_main_bar,
-  #speed_up_rails_bar .additional_info > div
-  {
-    position: fixed;
-    bottom: 5px;
-    right: 5px;
-    min-width: 250px;
-    border: 1px solid #c9c9c9;
-    background-color: #EDEAE0;
-    border-radius: 3px;
-    font-size: 14px;
-    overflow: auto;
-    font: normal normal 12px/21px Tahoma, sans-serif;
-  }
-  #speed_up_rails_bar > ul { list-style: none; clear: left; margin: 0; padding: 0; margin-left: 4px; }
-  #speed_up_rails_bar > ul > li { float: left; overflow: visible; }
-  #speed_up_rails_bar li > span { padding: 0 4px; }
-  #speed_up_rails_bar img {
-    vertical-align: middle;
-    position: relative;
-    top: -1px;
-    margin-right: 3px;
-    width: 18px;
-  }
-  #speed_up_rails_bar .additional_info > div {
-    padding: 5px;
-    display: none;
-  }
-  #speed_up_rails_bar .additional_info > div > div {
-    border-bottom: 1px solid #c9c9c9;
-  }
-  #speed_up_rails_bar .additional_info > div > div:last-child {
-    border-bottom: none;
-  }
-</style>
-<ul class="speed_up_main_bar">
+<% info_class = 'additional_info' + ( @redirect ? "-#{@redirect}" : '' ) %>
+<ul class="speed_up_main_bar speed_up_main_bar_<%= @redirect %><%= ' redirect' if @redirect %>">
   <% @collectors.each do |col| %>
+    <% next unless col.render? %>
     <li>
       <span class="speed_up_rails_<%= col.key %>" data-key="<%= col.key %>">
-        <%= render "speed_up_rails/collectors/#{col.key}", data: @request[col.key], key: col.key if col.render? %>
+        <%= render "speed_up_rails/collectors/#{col.key}", data: @request[col.key] || [], key: col.key %>
       </span>
     </li>
   <% end %>
 </ul>
-<div class="additional_info">
+<div class="additional_info <%= info_class %>">
   <% if content_for?(:speed_up_additional_bars) %>
     <%= yield :speed_up_additional_bars %>
   <% end %>
 </div>
 
 <script type="text/javascript">
-  elements = document.querySelectorAll("#speed_up_rails_bar .speed_up_main_bar > li > span");
-  console.log( elements );
+  elements = document.querySelectorAll("#speed_up_rails_bar .speed_up_main_bar_<%= @redirect %> > li > span");
   function handlerOver() {
-    elem = document.querySelector('#speed_up_rails_bar .additional_info .' + this.dataset.key );
+    elem = document.querySelector('#speed_up_rails_bar .<%= info_class %> .' + this.dataset.key );
     if( elem ) {
       elem.style.display = 'block';
-      elem.style.bottom = '' + (this.offsetHeight + 12) + 'px';
+      elem.style.bottom = '' + ( window.innerHeight - this.offsetParent.offsetTop + 2) + 'px';
     }
   }
   function handlerOut() {
-    elem = document.querySelector('#speed_up_rails_bar .additional_info .' + this.dataset.key );
+    elem = document.querySelector('#speed_up_rails_bar .<%= info_class %> .' + this.dataset.key );
     if( elem )
       elem.style.display = 'none';
   }

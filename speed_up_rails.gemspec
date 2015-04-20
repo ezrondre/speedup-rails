@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "speed_up_rails"
   s.version     = SpeedUpRails::VERSION
   s.authors     = ["Ondřej Ezr"]
-  s.email       = ["ezro@fit.cvut.cz"]
+  s.email       = ["ezrondre@fit.cvut.cz"]
   s.homepage    = "https://github.com/phoenixek12/speedup_rails"
   s.summary     = "SpeedUpRails provide analyzing and motitoring tool for rails."
   s.description = "SpeedUpRails is written in hope it will help develop faster rails applications."

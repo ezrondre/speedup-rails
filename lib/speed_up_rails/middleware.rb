@@ -4,15 +4,22 @@ module SpeedUpRails
 
     def initialize(app)
       @app = app
+      @redirects = []
     end
 
     def call(env)
       SpeedUpRails.setup_request(env['action_dispatch.request_id'])
       status, headers, body = @app.call(env)
       SpeedUpRails.request.save
-      if SpeedUpRails.show_bar? && body.is_a?(ActionDispatch::Response::RackBody)
-        body = SpeedUpRailsBody.new(body)
-        headers['Content-Length'] = body.collect{|row| row.length}.sum.to_s
+      case status
+      when 200..299
+        if SpeedUpRails.show_bar? && body.is_a?(ActionDispatch::Response::RackBody)
+          body = SpeedUpRailsBody.new(body, @redirects)
+          headers['Content-Length'] = body.collect{|row| row.length}.sum.to_s
+        end
+        @redirects = []
+      when 300..400
+        @redirects.push(SpeedUpRails.request.id)
       end
       [status, headers, body]
     rescue Exception => exception
@@ -23,8 +30,9 @@ module SpeedUpRails
     class SpeedUpRailsBody
       include Enumerable
 
-      def initialize(rack_body)
+      def initialize(rack_body, redirects=[])
         @rack_body = rack_body
+        @redirects = redirects
       end
 
       def each(*params, &block)
@@ -67,14 +75,83 @@ module SpeedUpRails
 
 
       def bar_html
-        '<div id="speed_up_rails_bar"></div>' +
-        "<script>#{javascript} speed_up_rails_ajax( '#{SpeedUpRails::Engine.routes.url_helpers.result_path(SpeedUpRails.request.id)}' , function(xhr){ res = stripScript( xhr.responseText ); document.getElementById('speed_up_rails_bar').innerHTML = res[0]; executeScript(res[1]) });</script>"
+        str = "#{styles}" +
+              '<div id="speed_up_rails_bar"></div>' +
+              "<script>#{javascript}" +
+              " loadRequestData('#{SpeedUpRails::Engine.routes.url_helpers.result_path(SpeedUpRails.request.id)}');"
+        @redirects.each_with_index do |req_id, idx|
+          str << " loadRequestData('#{SpeedUpRails::Engine.routes.url_helpers.result_path(req_id, redirect: idx)}');"
+        end
+        str << '</script>'
+        str
       end
 
       private
 
+        def styles
+          <<-END_STYLES
+            <style type="text/css">
+              #speed_up_rails_bar,
+              #speed_up_rails_bar .additional_info > div {
+                position: fixed;
+                bottom: 5px;
+                right: 5px;
+                min-width: 250px;
+              }
+              #speed_up_rails_bar .redirect {
+                color: #444;
+              }
+              #speed_up_rails_bar .speed_up_main_bar,
+              #speed_up_rails_bar .additional_info > div
+              {
+                border: 1px solid #c9c9c9;
+                background-color: #EDEAE0;
+                border-radius: 3px;
+                font-size: 14px;
+                overflow: auto;
+                font: normal normal 12px/21px Tahoma, sans-serif;
+              }
+              #speed_up_rails_bar > ul { list-style: none; clear: left; margin: 0; padding: 0; margin-left: 4px; }
+              #speed_up_rails_bar > ul > li { float: left; overflow: visible; }
+              #speed_up_rails_bar li > span { padding: 0 4px; }
+              #speed_up_rails_bar img {
+                vertical-align: middle;
+                position: relative;
+                top: -1px;
+                margin-right: 3px;
+                width: 18px;
+              }
+              #speed_up_rails_bar .additional_info > div {
+                padding: 5px;
+                display: none;
+              }
+              #speed_up_rails_bar .additional_info > div > div {
+                border-bottom: 1px solid #c9c9c9;
+              }
+              #speed_up_rails_bar .additional_info > div > div:last-child {
+                border-bottom: none;
+              }
+            </style>
+          END_STYLES
+        end
+
         def javascript
           result = <<-'END_JS'
+            function loadRequestData(url) {
+              speed_up_rails_ajax( url , function(xhr) {
+                res = stripScript( xhr.responseText );
+                appendHtml(document.getElementById('speed_up_rails_bar'), res[0]);
+                executeScript(res[1])
+              });
+            }
+            function appendHtml(el, str) {
+              var div = document.createElement('div');
+              div.innerHTML = str;
+              while (div.children.length > 0) {
+                el.appendChild(div.children[0]);
+              }
+            }
+
             function stripScript(text) {
               var scripts = '';
               var cleaned = text.replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, function(){

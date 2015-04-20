@@ -1,3 +1,29 @@
 = SpeedUpRails
+{<img src="https://travis-ci.org/speedup_rails/speedup_rails.png?branch=master" alt="Build Status" />}[https://travis-ci.org/speedup_rails/speedup_rails]
 
-This project rocks and uses MIT-LICENSE.
+== Overview
+
+SpeedUpRails is a development helper for a rails application.
+
+== Messurements
+
+
+== Install
+
+The easiest way to install speed_up_rails is by using Ruby Gems.  To install in your gem file:
+
+  gem 'speed_up_rails'
+
+== Usage
+
+
+
+== License
+
+See MIT-LICENSE for license information.
+
+== Development
+
+Code is located at https://github.com/phoenixek12/speedup_rails
+
+Google group/mailing list: http://groups.google.com/group/ruby-optimization or start a github issue.

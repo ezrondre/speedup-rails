@@ -7,4 +7,8 @@ class WelcomeController < ApplicationController
     User.find 'a'
   end
 
+  def redirect
+    redirect_to posts_path
+  end
+
 end

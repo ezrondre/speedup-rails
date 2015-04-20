@@ -1,8 +1,8 @@
-<%= data.count %> problems
+<%= image_tag('speed_up_rails/alert.jpg') %><%= data.count %> problems
 <% content_for(:speed_up_additional_bars) do %>
   <div class="<%= key %>">
   <% data.each do |problem| %>
     <div><%= problem[:caller].gsub(/\n/, '<br />').html_safe %></div>
   <% end %>
   </div>
-<% end %>
+<% end if data.any? %>

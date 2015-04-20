@@ -13,8 +13,8 @@ PATH
   specs:
     perfdashboard (0.0.1)
       bootstrap-sass
-      httparty
       rails (~> 4.2.1)
+      speed_up_rails_adapters
 
 GEM
   remote: https://rubygems.org/
