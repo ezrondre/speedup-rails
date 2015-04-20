@@ -1,1 +1,3 @@
-<%= image_tag('speed_up_rails/time.png', width: 18) %> <%= (data[:duration] * 100).round.to_f / 100 %> ms
+
+<%= image_tag('speed_up_rails/input.png') %> <%= data[:controller] %>#<%= data[:action] %>
+<%= image_tag('speed_up_rails/time.png') %> <%= (data[:duration] * 100).round.to_f / 100 %> ms

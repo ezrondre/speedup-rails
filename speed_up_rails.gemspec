@@ -22,11 +22,11 @@ Gem::Specification.new do |s|
   s.add_dependency 'bullet'
   s.add_dependency 'ruby-prof'
   s.add_dependency 'rack-mini-profiler'
+  s.add_dependency 'speed_up_rails_adapters'
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'factory_girl_rails'
-  s.add_development_dependency "influxdb"
 
 end

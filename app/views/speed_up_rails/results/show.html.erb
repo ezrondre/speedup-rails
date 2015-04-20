@@ -3,8 +3,8 @@
   #speed_up_rails_bar .additional_info > div
   {
     position: fixed;
-    bottom: 0;
-    right: 0;
+    bottom: 5px;
+    right: 5px;
     min-width: 250px;
     border: 1px solid #c9c9c9;
     background-color: #EDEAE0;
@@ -21,9 +21,17 @@
     position: relative;
     top: -1px;
     margin-right: 3px;
+    width: 18px;
   }
   #speed_up_rails_bar .additional_info > div {
+    padding: 5px;
     display: none;
+  }
+  #speed_up_rails_bar .additional_info > div > div {
+    border-bottom: 1px solid #c9c9c9;
+  }
+  #speed_up_rails_bar .additional_info > div > div:last-child {
+    border-bottom: none;
   }
 </style>
 <ul class="speed_up_main_bar">
@@ -48,7 +56,7 @@
     elem = document.querySelector('#speed_up_rails_bar .additional_info .' + this.dataset.key );
     if( elem ) {
       elem.style.display = 'block';
-      elem.style.bottom = '' + (this.offsetHeight + 8) + 'px';
+      elem.style.bottom = '' + (this.offsetHeight + 12) + 'px';
     }
   }
   function handlerOut() {
