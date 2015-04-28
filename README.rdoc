@@ -24,6 +24,6 @@ See MIT-LICENSE for license information.
 
 == Development
 
-Code is located at https://github.com/phoenixek12/speedup_rails
+Code is located at https://github.com/ezrondre/speedup-rails
 
 Google group/mailing list: http://groups.google.com/group/ruby-optimization or start a github issue.
