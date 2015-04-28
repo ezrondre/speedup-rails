@@ -21,7 +21,7 @@ module Speedup
 
 
       def filter_event?(evt)
-        evt.payload[:controller].start_with?('Speedup')
+        super || evt.payload[:controller].start_with?('Speedup')
       end
 
     end

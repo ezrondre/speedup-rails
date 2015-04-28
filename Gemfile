@@ -13,6 +13,7 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
+gem 'rdoc', group: [:development, :test]
 gem 'awesome_print', group: [:development, :test]
 gem 'pry-rails', group: [:development, :test]
 

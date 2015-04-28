@@ -122,6 +122,8 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
+    rdoc (4.2.0)
+      json (~> 1.4)
     rspec-core (3.2.3)
       rspec-support (~> 3.2.0)
     rspec-expectations (3.2.1)
@@ -167,6 +169,7 @@ DEPENDENCIES
   capybara
   factory_girl_rails
   pry-rails
+  rdoc
   rspec-rails
   speedup-rails!
   sqlite3

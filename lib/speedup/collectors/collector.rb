@@ -26,13 +26,7 @@ module Speedup
         true
       end
 
-      # The defer key that is derived from the classname.
-      #
-      # Examples:
-      #
-      #   Peek::Views::PerformanceBar => "performance-bar"
-      #   Peek::Views::Resque => "resque"
-      #
+
       # Returns String.
       def key
         self.class.name.to_s.split('::').last.gsub(/Collector$/, '').underscore.to_sym
@@ -43,26 +37,20 @@ module Speedup
         enabled?
       end
 
-      # The context id that is derived from the classname.
-      #
-      # Examples:
-      #
-      #   Peek::Views::PerformanceBar => "peek-context-performance-bar"
-      #   Peek::Views::Resque => "peek-context-resque"
-      #
+
       # Returns String.
       def context_id
-        "peek-context-#{key}"
+        "speedup-context-#{key}"
       end
 
-      # The wrapper ID for the individual view in the Peek bar.
+      # The wrapper ID for the individual panel in the Speedup bar.
       #
       # Returns String.
       def dom_id
-        "peek-view-#{key}"
+        "speedup-panel-#{key}"
       end
 
-      # Additional context for any view to render tooltips for.
+      # Additional context for any panel to render tooltips for.
       #
       # Returns Hash.
       def context
@@ -74,7 +62,7 @@ module Speedup
       end
 
       # The data results that are inserted at the end of the request for use in
-      # deferred placeholders in the Peek the bar.
+      # deferred placeholders in the Speedup the bar.
       #
       # Returns Hash.
       def results
@@ -98,7 +86,7 @@ module Speedup
       end
 
       def filter_event?(evt)
-        false
+        Speedup.enabled?
       end
 
       protected

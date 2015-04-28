@@ -1,4 +1,4 @@
-require "speedup/engine"
+require "speedup-rails/engine"
 require "speedup/request"
 
 require 'rails'

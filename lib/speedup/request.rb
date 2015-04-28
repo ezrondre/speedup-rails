@@ -28,6 +28,7 @@ module Speedup
       Speedup.temporary_disabled = false
       return unless data.any?
       self.class.connection.write(id, data)
+      File.open(Rails.root.join('tmp', 'test.yml'), 'w') {|f| f.write({contexts: data.contexts, data: data}.to_yaml) }
     end
 
 

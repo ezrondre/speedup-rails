@@ -1,0 +1,30 @@
+---
+:contexts:
+- :queries
+- :request
+:data: !ruby/hash:Speedup::RequestData
+  :queries:
+  - :time: 2015-04-28 20:01:56.032352175 +02:00
+    :duration: 0.294771
+    :name: User Load
+    :query: SELECT "users".* FROM "users"
+  - :time: 2015-04-28 20:01:56.101757700 +02:00
+    :duration: 0.33981300000000003
+    :name: 
+    :query: SELECT COUNT(*) FROM "posts" WHERE "posts"."author_id" = ?
+  - :time: 2015-04-28 20:01:56.103088557 +02:00
+    :duration: 0.11207
+    :name: 
+    :query: SELECT COUNT(*) FROM "posts" WHERE "posts"."author_id" = ?
+  - :time: 2015-04-28 20:01:56.103636212 +02:00
+    :duration: 0.100737
+    :name: 
+    :query: SELECT COUNT(*) FROM "posts" WHERE "posts"."author_id" = ?
+  :request:
+    :time: 2015-04-28 20:01:56.024171702 +02:00
+    :duration: 245.308876
+    :controller: WelcomeController
+    :action: index
+    :path: /
+    :view_duration: 240.56780899999998
+    :db_duration: 0.7527189999999999

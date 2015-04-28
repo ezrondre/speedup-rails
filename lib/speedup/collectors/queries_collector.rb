@@ -8,7 +8,7 @@ module  Speedup
       end
 
       def filter_event?(evt)
-        evt.payload[:name] =~ /schema/i
+        super || evt.payload[:name] =~ /schema/i
       end
 
     end

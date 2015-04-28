@@ -76,11 +76,11 @@ module Speedup
 
       def bar_html
         str = "#{styles}" +
-              '<div id="speed_up_rails_bar"></div>' +
+              '<div id="speedup_rails_bar"></div>' +
               "<script>#{javascript}" +
-              " loadRequestData('#{Speedup::Engine.routes.url_helpers.result_path(Speedup.request.id)}');"
+              " loadRequestData('#{SpeedupRails::Engine.routes.url_helpers.result_path(Speedup.request.id)}');"
         @redirects.each_with_index do |req_id, idx|
-          str << " loadRequestData('#{Speedup::Engine.routes.url_helpers.result_path(req_id, redirect: idx)}');"
+          str << " loadRequestData('#{SpeedupRails::Engine.routes.url_helpers.result_path(req_id, redirect: idx)}');"
         end
         str << '</script>'
         str
@@ -91,18 +91,18 @@ module Speedup
         def styles
           <<-END_STYLES
             <style type="text/css">
-              #speed_up_rails_bar,
-              #speed_up_rails_bar .additional_info > div {
+              #speedup_rails_bar,
+              #speedup_rails_bar .additional_info > div {
                 position: fixed;
                 bottom: 5px;
                 right: 5px;
                 min-width: 250px;
               }
-              #speed_up_rails_bar .redirect {
+              #speedup_rails_bar .redirect {
                 color: #444;
               }
-              #speed_up_rails_bar .speed_up_main_bar,
-              #speed_up_rails_bar .additional_info > div
+              #speedup_rails_bar .speedup_main_bar,
+              #speedup_rails_bar .additional_info > div
               {
                 border: 1px solid #c9c9c9;
                 background-color: #EDEAE0;
@@ -111,24 +111,24 @@ module Speedup
                 overflow: auto;
                 font: normal normal 12px/21px Tahoma, sans-serif;
               }
-              #speed_up_rails_bar > ul { list-style: none; clear: left; margin: 0; padding: 0; margin-left: 4px; }
-              #speed_up_rails_bar > ul > li { float: left; overflow: visible; }
-              #speed_up_rails_bar li > span { padding: 0 4px; }
-              #speed_up_rails_bar img {
+              #speedup_rails_bar > ul { list-style: none; clear: left; margin: 0; padding: 0; margin-left: 4px; }
+              #speedup_rails_bar > ul > li { float: left; overflow: visible; }
+              #speedup_rails_bar li > span { padding: 0 4px; }
+              #speedup_rails_bar img {
                 vertical-align: middle;
                 position: relative;
                 top: -1px;
                 margin-right: 3px;
                 width: 18px;
               }
-              #speed_up_rails_bar .additional_info > div {
+              #speedup_rails_bar .additional_info > div {
                 padding: 5px;
                 display: none;
               }
-              #speed_up_rails_bar .additional_info > div > div {
+              #speedup_rails_bar .additional_info > div > div {
                 border-bottom: 1px solid #c9c9c9;
               }
-              #speed_up_rails_bar .additional_info > div > div:last-child {
+              #speedup_rails_bar .additional_info > div > div:last-child {
                 border-bottom: none;
               }
             </style>
@@ -138,9 +138,9 @@ module Speedup
         def javascript
           result = <<-'END_JS'
             function loadRequestData(url) {
-              speed_up_rails_ajax( url , function(xhr) {
+              speedup_rails_ajax( url , function(xhr) {
                 res = stripScript( xhr.responseText );
-                appendHtml(document.getElementById('speed_up_rails_bar'), res[0]);
+                appendHtml(document.getElementById('speedup_rails_bar'), res[0]);
                 executeScript(res[1])
               });
             }
@@ -173,7 +173,7 @@ module Speedup
               }
             }
 
-            function speed_up_rails_ajax(url, callback) {
+            function speedup_rails_ajax(url, callback) {
               var xmlhttp;
 
               if (window.XMLHttpRequest) {

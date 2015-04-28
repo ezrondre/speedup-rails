@@ -1,11 +1,11 @@
-module SpeedUpRails
+module SpeedupRails
   class ApplicationController < ActionController::Base
 
     before_action :disable_collectors
 
     private
       def disable_collectors
-        SpeedUpRails.temporary_disabled = true
+        Speedup.temporary_disabled = true
       end
   end
 end

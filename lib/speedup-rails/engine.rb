@@ -1,9 +1,9 @@
 require 'speedup/controller_helpers'
 require 'speedup/middleware'
 
-module Speedup
+module SpeedupRails
   class Engine < ::Rails::Engine
-    isolate_namespace Speedup
+    isolate_namespace SpeedupRails
 
     engine_name :speedup
 

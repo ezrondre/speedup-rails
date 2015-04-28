@@ -1,10 +1,10 @@
 <% info_class = 'additional_info' + ( @redirect ? "-#{@redirect}" : '' ) %>
-<ul class="speed_up_main_bar speed_up_main_bar_<%= @redirect %><%= ' redirect' if @redirect %>">
+<ul class="speedup_main_bar speedup_main_bar_<%= @redirect %><%= ' redirect' if @redirect %>">
   <% @collectors.each do |col| %>
     <% next unless col.render? %>
     <li>
-      <span class="speed_up_rails_<%= col.key %>" data-key="<%= col.key %>">
-        <%= render "speed_up_rails/collectors/#{col.key}", data: @request[col.key] || [], key: col.key %>
+      <span class="speedup_rails_<%= col.key %>" data-key="<%= col.key %>">
+        <%= render "speedup_rails/collectors/#{col.key}", data: @request[col.key] || [], key: col.key %>
       </span>
     </li>
   <% end %>
@@ -16,16 +16,16 @@
 </div>
 
 <script type="text/javascript">
-  elements = document.querySelectorAll("#speed_up_rails_bar .speed_up_main_bar_<%= @redirect %> > li > span");
+  elements = document.querySelectorAll("#speedup_rails_bar .speedup_main_bar_<%= @redirect %> > li > span");
   function handlerOver() {
-    elem = document.querySelector('#speed_up_rails_bar .<%= info_class %> .' + this.dataset.key );
+    elem = document.querySelector('#speedup_rails_bar .<%= info_class %> .' + this.dataset.key );
     if( elem ) {
       elem.style.display = 'block';
       elem.style.bottom = '' + ( window.innerHeight - this.offsetParent.offsetTop + 2) + 'px';
     }
   }
   function handlerOut() {
-    elem = document.querySelector('#speed_up_rails_bar .<%= info_class %> .' + this.dataset.key );
+    elem = document.querySelector('#speedup_rails_bar .<%= info_class %> .' + this.dataset.key );
     if( elem )
       elem.style.display = 'none';
   }

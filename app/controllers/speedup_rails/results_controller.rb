@@ -1,10 +1,10 @@
-module SpeedUpRails
-  class ResultsController < SpeedUpRails::ApplicationController
+module SpeedupRails
+  class ResultsController < SpeedupRails::ApplicationController
 
     def show
       @request_id = params[:id]
-      @request = SpeedUpRails::Request.get(@request_id)
-      @collectors = SpeedUpRails.collectors
+      @request = Speedup::Request.get(@request_id)
+      @collectors = Speedup.collectors
       @redirect = params[:redirect]
       render layout: false
     end
