@@ -9,7 +9,7 @@ require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 Bundler.require(*Rails.groups)
-require "speed_up_rails"
+require "speedup-rails"
 
 module Dummy
   class Application < Rails::Application

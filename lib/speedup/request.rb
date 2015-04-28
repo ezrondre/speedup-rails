@@ -1,4 +1,4 @@
-require 'speedup_adapters'
+require 'speedup-adapters'
 
 module Speedup
 
