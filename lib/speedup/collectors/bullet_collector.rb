@@ -1,4 +1,4 @@
-module SpeedUpRails
+module Speedup
   module Collectors
     class BulletCollector < Collector
 
@@ -26,8 +26,8 @@ module SpeedUpRails
           Bullet.start_request
         end
         after_request do
-          Bullet.notification_collector.collection.each do |notification|
-            SpeedUpRails.request.store_bullet_notification(notification)
+          Bullet.notification_collector && Bullet.notification_collector.collection.each do |notification|
+            Speedup.request.store_bullet_notification(notification)
           end
           Bullet.end_request
         end

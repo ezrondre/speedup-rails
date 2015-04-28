@@ -1,5 +1,5 @@
-= SpeedUpRails
-{<img src="https://travis-ci.org/speedup_rails/speedup_rails.png?branch=master" alt="Build Status" />}[https://travis-ci.org/speedup_rails/speedup_rails]
+= SpeedupRails
+{<img src="https://travis-ci.org/ezrondre/speedup-rails.png?branch=master" alt="Build Status" />}[https://travis-ci.org/ezrondre/speedup-rails]
 
 == Overview
 
@@ -10,9 +10,9 @@ SpeedUpRails is a development helper for a rails application.
 
 == Install
 
-The easiest way to install speed_up_rails is by using Ruby Gems.  To install in your gem file:
+The easiest way to install speedup-rails is by using Ruby Gems.  To install in your gem file:
 
-  gem 'speed_up_rails'
+  gem 'speedup-rails'
 
 == Usage
 

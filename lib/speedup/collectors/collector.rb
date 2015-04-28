@@ -1,4 +1,4 @@
-module SpeedUpRails
+module Speedup
   module Collectors
     class Collector
 
@@ -91,9 +91,9 @@ module SpeedUpRails
 
       def register(*args)
         subscribe(*args) do |*args|
-          next unless SpeedUpRails.enabled?
+          next unless Speedup.enabled?
           evt = ActiveSupport::Notifications::Event.new(*args)
-          SpeedUpRails.request.store_event(evt) unless filter_event?(evt)
+          Speedup.request.store_event(evt) unless filter_event?(evt)
         end
       end
 

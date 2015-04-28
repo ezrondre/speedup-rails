@@ -1,4 +1,4 @@
-module SpeedUpRails
+module Speedup
   module ControllerHelpers
     extend ActiveSupport::Concern
 
@@ -9,7 +9,7 @@ module SpeedUpRails
     protected
 
     def speed_up_rails_enabled?
-      SpeedUpRails.enabled?
+      Speedup.enabled?
     end
   end
 end

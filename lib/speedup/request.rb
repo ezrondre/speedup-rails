@@ -1,11 +1,11 @@
-require 'speed_up_rails_adapters'
+require 'speedup_adapters'
 
-module SpeedUpRails
+module Speedup
 
   class Request
 
     def self.connection
-      SpeedUpRails.adapter
+      Speedup.adapter
     end
 
     def self.get(request_id)
@@ -25,7 +25,7 @@ module SpeedUpRails
     end
 
     def save
-      SpeedUpRails.temporary_disabled = false
+      Speedup.temporary_disabled = false
       return unless data.any?
       self.class.connection.write(id, data)
     end

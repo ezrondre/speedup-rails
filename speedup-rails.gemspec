@@ -1,15 +1,15 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "speed_up_rails/version"
+require "speedup/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "speed_up_rails"
-  s.version     = SpeedUpRails::VERSION
+  s.name        = "speedup-rails"
+  s.version     = Speedup::VERSION
   s.authors     = ["Ondřej Ezr"]
   s.email       = ["ezrondre@fit.cvut.cz"]
-  s.homepage    = "https://github.com/phoenixek12/speedup_rails"
+  s.homepage    = "https://github.com/ezrondre/speedup-rails"
   s.summary     = "SpeedUpRails provide analyzing and motitoring tool for rails."
   s.description = "SpeedUpRails is written in hope it will help develop faster rails applications."
   s.license     = "MIT"
@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'bullet'
   s.add_dependency 'ruby-prof'
   s.add_dependency 'rack-mini-profiler'
-  s.add_dependency 'speed_up_rails_adapters'
+  s.add_dependency 'speedup-adapters'
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency 'rspec-rails'

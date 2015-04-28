@@ -1,20 +1,21 @@
 PATH
   remote: .
   specs:
-    speed_up_rails (0.0.1)
+    speedup-rails (0.0.1)
       bullet
       rack-mini-profiler
       rails (~> 4.2.1)
       ruby-prof
-      speed_up_rails_adapters
+      speedup-adapters
 
 PATH
   remote: ../perfdashboard
   specs:
     perfdashboard (0.0.1)
       bootstrap-sass
+      bootstrap_form
       rails (~> 4.2.1)
-      speed_up_rails_adapters
+      speedup-adapters
 
 GEM
   remote: https://rubygems.org/
@@ -62,6 +63,7 @@ GEM
     bootstrap-sass (3.3.4.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
+    bootstrap_form (2.3.0)
     builder (3.2.2)
     bullet (4.14.5)
       activesupport (>= 3.0.0)
@@ -95,9 +97,9 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
-    mime-types (2.4.3)
+    mime-types (2.5)
     mini_portile (0.6.2)
-    minitest (5.6.0)
+    minitest (5.6.1)
     multi_xml (0.5.5)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
@@ -154,13 +156,13 @@ GEM
       rspec-mocks (~> 3.2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.2)
-    ruby-prof (0.15.6)
+    ruby-prof (0.15.8)
     sass (3.4.13)
     slop (3.6.0)
-    speed_up_rails_adapters (0.0.2)
+    speedup-adapters (0.0.1)
       httparty
       influxdb
-    sprockets (3.0.1)
+    sprockets (3.0.3)
       rack (~> 1.0)
     sprockets-rails (2.2.4)
       actionpack (>= 3.0)
@@ -185,5 +187,5 @@ DEPENDENCIES
   perfdashboard!
   pry-rails
   rspec-rails
-  speed_up_rails!
+  speedup-rails!
   sqlite3

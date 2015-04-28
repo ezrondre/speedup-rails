@@ -1,4 +1,4 @@
-module SpeedUpRails
+module Speedup
 
   class Middleware
 
@@ -8,26 +8,26 @@ module SpeedUpRails
     end
 
     def call(env)
-      SpeedUpRails.setup_request(env['action_dispatch.request_id'])
+      Speedup.setup_request(env['action_dispatch.request_id'])
       status, headers, body = @app.call(env)
-      SpeedUpRails.request.save
+      Speedup.request.save
       case status
       when 200..299
-        if SpeedUpRails.show_bar? && body.is_a?(ActionDispatch::Response::RackBody)
-          body = SpeedUpRailsBody.new(body, @redirects)
+        if Speedup.show_bar? && body.is_a?(ActionDispatch::Response::RackBody)
+          body = SpeedupBody.new(body, @redirects)
           headers['Content-Length'] = body.collect{|row| row.length}.sum.to_s
         end
         @redirects = []
       when 300..400
-        @redirects.push(SpeedUpRails.request.id)
+        @redirects.push(Speedup.request.id)
       end
       [status, headers, body]
     rescue Exception => exception
-       SpeedUpRails.request && SpeedUpRails.request.save
+       Speedup.request && Speedup.request.save
       raise exception
     end
 
-    class SpeedUpRailsBody
+    class SpeedupBody
       include Enumerable
 
       def initialize(rack_body, redirects=[])
@@ -78,9 +78,9 @@ module SpeedUpRails
         str = "#{styles}" +
               '<div id="speed_up_rails_bar"></div>' +
               "<script>#{javascript}" +
-              " loadRequestData('#{SpeedUpRails::Engine.routes.url_helpers.result_path(SpeedUpRails.request.id)}');"
+              " loadRequestData('#{Speedup::Engine.routes.url_helpers.result_path(Speedup.request.id)}');"
         @redirects.each_with_index do |req_id, idx|
-          str << " loadRequestData('#{SpeedUpRails::Engine.routes.url_helpers.result_path(req_id, redirect: idx)}');"
+          str << " loadRequestData('#{Speedup::Engine.routes.url_helpers.result_path(req_id, redirect: idx)}');"
         end
         str << '</script>'
         str

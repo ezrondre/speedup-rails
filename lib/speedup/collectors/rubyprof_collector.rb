@@ -1,4 +1,4 @@
-module SpeedUpRails
+module Speedup
   module Collectors
     class RubyprofCollector < Collector
 
@@ -30,7 +30,7 @@ module SpeedUpRails
 
           # Print a flat profile to text
           printer = RubyProf::GraphHtmlPrinter.new(result)
-          ::File.open(@results_dir.join( SpeedUpRails.request.id ), 'wb') do |file|
+          ::File.open(@results_dir.join( Speedup.request.id ), 'wb') do |file|
             printer.print(file)
           end
         end
@@ -38,7 +38,7 @@ module SpeedUpRails
 
 
       def filter_event?(evt)
-        evt.payload[:controller].start_with?('SpeedUpRails')
+        evt.payload[:controller].start_with?('Speedup')
       end
 
     end

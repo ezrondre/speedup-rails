@@ -1,4 +1,4 @@
-module  SpeedUpRails
+module  Speedup
   module Collectors
     class QueriesCollector < Collector
 

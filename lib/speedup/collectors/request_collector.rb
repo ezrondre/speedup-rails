@@ -1,12 +1,6 @@
-module SpeedUpRails
+module Speedup
   module Collectors
-    class MiniprofilerCollector < Collector
-
-      def initialize(*attrs)
-        require 'rack-mini-profiler'
-        Rack::MiniProfilerRails.initialize!(Rails.application)
-        super
-      end
+    class RequestCollector < Collector
 
 
       def parse_options
@@ -22,11 +16,13 @@ module SpeedUpRails
       end
 
       def setup_subscribes
+        register('process_action.action_controller')
       end
 
 
-      # def filter_event?(evt)
-      # end
+      def filter_event?(evt)
+        evt.payload[:controller].start_with?('Speedup')
+      end
 
     end
   end
