@@ -56,7 +56,7 @@ module Speedup
     collectors = Array.wrap(collectors)
     @collector_classes = collectors.map do |collector|
       collector_class_name = collector.to_s.camelize + 'Collector'
-      require "speed_up_rails/collectors/#{collector}_collector"
+      require "speedup/collectors/#{collector}_collector"
       Speedup::Collectors.const_get(collector_class_name)
     end
   end
@@ -79,4 +79,4 @@ module Speedup
 
 end
 
-ActiveSupport.run_load_hooks(:speed_up_rails, Speedup) if Speedup.enabled?
+ActiveSupport.run_load_hooks(:speedup, Speedup) if Speedup.enabled?

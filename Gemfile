@@ -16,4 +16,4 @@ gemspec
 gem 'awesome_print', group: [:development, :test]
 gem 'pry-rails', group: [:development, :test]
 
-gem 'perfdashboard', group:[:development], path: '../perfdashboard'
+# gem 'perfdashboard', group:[:development, :test], path: '../perfdashboard'

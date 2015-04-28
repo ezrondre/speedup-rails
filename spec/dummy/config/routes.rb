@@ -6,5 +6,5 @@ Rails.application.routes.draw do
 
   resources :posts
 
-  mount SpeedUpRails::Engine => "/speed_up_rails"
+  mount Speedup::Engine => "/speed_up_rails"
 end
