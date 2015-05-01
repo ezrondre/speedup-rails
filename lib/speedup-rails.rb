@@ -49,7 +49,7 @@ module Speedup
   end
 
   def self.request
-    Thread.current[:speedup_rails]
+    Thread.current[:speedup_rails] || Speedup::Request.new('dummy')
   end
 
   def self.collectors=(collectors)

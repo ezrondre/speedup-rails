@@ -2,11 +2,12 @@ require 'rails_helper'
 
 module SpeedupRails
   RSpec.describe ResultsController, type: :controller do
+    routes { SpeedupRails::Engine.routes }
 
     def initialize_request_data(request_id, adapter=:memory)
       Speedup.adapter = :memory
       Speedup.prepare_collectors
-      data = YAML::load_file(File.expand_path('../../../fixtures/test.yml', __FILE__))
+      data = YAML::load_file(File.expand_path('../../../data/test.yml', __FILE__))
       Speedup.adapter.write(request_id, Speedup::RequestData.new.load(data[:contexts], data[:data]) )
     end
 
