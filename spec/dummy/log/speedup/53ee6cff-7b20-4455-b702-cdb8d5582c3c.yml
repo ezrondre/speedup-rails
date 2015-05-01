@@ -1,0 +1,55 @@
+---
+:contexts:
+- :queries
+- :partials
+- :request
+- :bullet
+:data: !ruby/hash:Speedup::RequestData
+  :queries:
+  - :time: 2015-05-01 02:59:58.237443336 +02:00
+    :duration: 0.22259400000000001
+    :name: User Load
+    :query: SELECT "users".* FROM "users"
+  - :time: 2015-05-01 02:59:58.239012242 +02:00
+    :duration: 0.222109
+    :name: Post Load
+    :query: SELECT "posts".* FROM "posts" WHERE "posts"."author_id" = ?
+  - :time: 2015-05-01 02:59:58.240956546 +02:00
+    :duration: 0.11718100000000001
+    :name: Post Load
+    :query: SELECT "posts".* FROM "posts" WHERE "posts"."author_id" = ?
+  - :time: 2015-05-01 02:59:58.242597835 +02:00
+    :duration: 0.12878299999999998
+    :name: Post Load
+    :query: SELECT "posts".* FROM "posts" WHERE "posts"."author_id" = ?
+  :partials:
+  - :identifier: app/views/posts/_post.html.erb
+    :count: 3
+    :time: 2015-05-01 02:59:58.240097460 +02:00
+    :duration: 0.183065
+  - :identifier: app/views/posts/_post.html.erb
+    :count: 5
+    :time: 2015-05-01 02:59:58.241823685 +02:00
+    :duration: 0.174271
+  - :identifier: app/views/posts/_post.html.erb
+    :count: 9
+    :time: 2015-05-01 02:59:58.243438251 +02:00
+    :duration: 0.204927
+  :request:
+    :time: 2015-05-01 02:59:58.235941203 +02:00
+    :duration: 14.54056
+    :controller: PostsController
+    :action: index
+    :path: /posts
+    :view_duration: 13.929167
+    :db_duration: 0.373272
+  :bullet:
+  - :type: NPlusOneQuery
+    :name: N+1 Query detected
+    :caller: |-
+      N+1 Query method call stack
+        /home/ondra/Documents/fit/BP/speedup-rails/spec/dummy/app/views/posts/index.html.erb:3:in `block in _app_views_posts_index_html_erb__3793308477191677202_29335160'
+        /home/ondra/Documents/fit/BP/speedup-rails/spec/dummy/app/views/posts/index.html.erb:1:in `_app_views_posts_index_html_erb__3793308477191677202_29335160'
+    :message: |2-
+        User => [:posts]
+        Add to your finder: :includes => [:posts]
