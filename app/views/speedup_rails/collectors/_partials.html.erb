@@ -1,4 +1,4 @@
-<%= image_tag('speedup_rails/file-icon.png') %><%= data.count %> partials (<%= render_ms(data.sum{|t| t[:duration] }) %>)
+<%= image_tag('speedup_rails/file-icon.png', alt: '') %><%= data.count %> partials (<%= render_ms(data.sum{|t| t[:duration] }) %>)
 <% content_for(:speed_up_additional_bars) do %>
   <div class="partials">
     <% data.each do |template| %>

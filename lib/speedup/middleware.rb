@@ -13,9 +13,9 @@ module Speedup
       Speedup.request.save
       case status
       when 200..299
-        if Speedup.show_bar? && body.is_a?(ActionDispatch::Response::RackBody)
+        if Speedup.show_bar?
           body = SpeedupBody.new(body, @redirects)
-          headers['Content-Length'] = body.collect{|row| row.length}.sum.to_s
+          # headers['Content-Length'] = body.collect{|row| row.length}.sum.to_s
         end
         @redirects = []
       when 300..400
@@ -177,10 +177,8 @@ module Speedup
               var xmlhttp;
 
               if (window.XMLHttpRequest) {
-                // code for IE7+, Firefox, Chrome, Opera, Safari
                 xmlhttp = new XMLHttpRequest();
               } else {
-                // code for IE6, IE5
                 xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
               }
 

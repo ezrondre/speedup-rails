@@ -1,7 +1,7 @@
 module SpeedupRails
   class ApplicationController < ActionController::Base
 
-    before_action :disable_collectors
+    before_filter :disable_collectors
 
     private
       def disable_collectors
