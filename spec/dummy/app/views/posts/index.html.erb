@@ -1,8 +1,5 @@
 <% @users.each do |user| %>
 
-  <% user.posts.each do |post| %>
-    <h3><%= post.subject %></h3>
-    <p><%= post.content %></p>
-  <% end %>
+  <%= render user.posts %>
 
 <% end %>

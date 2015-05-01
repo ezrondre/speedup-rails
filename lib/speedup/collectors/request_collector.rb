@@ -24,6 +24,23 @@ module Speedup
         super || evt.payload[:controller].start_with?('Speedup')
       end
 
+      def event_to_data(evt)
+        data = {}
+        data[:time] = evt.time
+        data[:duration] = evt.duration
+        data[:controller] = evt.payload[:controller]
+        data[:action] = evt.payload[:action]
+        data[:path] = evt.payload[:path]
+        if evt.payload.key?(:exception)
+          data[:error] = true
+          Speedup.request.store_event(:exception, evt.payload[:exception] )
+        end
+        data[:view_duration] = evt.payload[:view_runtime]
+        data[:db_duration] = evt.payload[:db_runtime]
+
+        data
+      end
+
     end
   end
 end

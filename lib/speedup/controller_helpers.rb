@@ -3,12 +3,12 @@ module Speedup
     extend ActiveSupport::Concern
 
     included do
-      helper_method :speed_up_rails_enabled?
+      helper_method :speedup_rails_enabled?
     end
 
     protected
 
-    def speed_up_rails_enabled?
+    def speedup_rails_enabled?
       Speedup.enabled?
     end
   end

@@ -143,8 +143,8 @@ GEM
     rspec-support (3.2.2)
     ruby-prof (0.15.8)
     slop (3.6.0)
-    speedup-adapters (0.0.2)
-      httparty
+    speedup-adapters (0.0.5)
+      httparty (~> 0.13.3)
       influxdb
     sprockets (3.0.3)
       rack (~> 1.0)

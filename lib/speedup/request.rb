@@ -28,46 +28,19 @@ module Speedup
       Speedup.temporary_disabled = false
       return unless data.any?
       self.class.connection.write(id, data)
-      File.open(Rails.root.join('tmp', 'test.yml'), 'w') {|f| f.write({contexts: data.contexts, data: data}.to_yaml) }
     end
 
 
-    #data setters
-    def request_data=(evt)
-      storage = data.storage_for(:request)
-      storage[:time] = evt.time
-      storage[:duration] = evt.duration
-      storage[:controller] = evt.payload[:controller]
-      storage[:action] = evt.payload[:action]
-      storage[:path] = evt.payload[:path]
-      if evt.payload.key?(:exception)
-        storage[:error] = true
-        data.storage_for(:exception) << evt.payload[:exception]
-      end
-      storage[:view_duration] = evt.payload[:view_runtime]
-      storage[:db_duration] = evt.payload[:db_runtime]
-    end
-
-    def store_event(evt)
-      method = "store_#{evt.name.sub('.','_')}"
-      if evt.name == 'process_action.action_controller'
-        self.request_data = evt
+    def store_event(key, evt_data)
+      method = "store_#{key}"
+      if key == :request
+        data.storage_for(key).merge!(evt_data)
       elsif respond_to?(method)
-        send(method, evt)
+        send(method, evt_data)
       else
-        data[:events][evt.name] ||= []
-        data[:events][evt.name] << evt
+        storage = data.storage_for(key)
+        storage << evt_data
       end
-    end
-
-    def store_sql_active_record(evt)
-      queries = data.storage_for(:queries)
-      queries << {time: evt.time, duration: evt.duration, name: evt.payload[:name], query: evt.payload[:sql]}
-    end
-
-    def store_bullet_notification(notification)
-      bullet = data.storage_for(:bullet)
-      bullet << {type: notification.class.name.split('::').last, name: notification.title, caller: notification.send(:call_stack_messages), message: notification.body}
     end
 
   end

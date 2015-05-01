@@ -7,6 +7,14 @@ module SpeedupRails
 
     engine_name :speedup
 
+    def self.automount!(path = nil)
+      engine = self
+      path ||= engine.to_s.underscore.split('/').first
+      Rails.application.routes.draw do
+        mount engine => path
+      end
+    end
+
     config.generators do |g|
       g.test_framework      :rspec,        :fixture => false
       g.fixture_replacement :factory_girl, :dir => 'spec/factories'
@@ -19,10 +27,11 @@ module SpeedupRails
     # Default adapter
     config.speedup.adapter = :memory
 
-    config.speedup.collectors = [:request, :queries]
+    config.speedup.collectors = [:request, :queries, :partials]
     config.speedup.collectors += [:bullet] if Rails.env.development?
 
     config.speedup.show_bar = true
+    config.speedup.automount = true
 
     initializer 'speedup.set_configs' do |app|
       ActiveSupport.on_load(:speedup) do

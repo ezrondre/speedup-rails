@@ -27,7 +27,7 @@ module Speedup
       end
 
 
-      # Returns String.
+      # Returns Symbol.
       def key
         self.class.name.to_s.split('::').last.gsub(/Collector$/, '').underscore.to_sym
       end
@@ -50,17 +50,6 @@ module Speedup
         "speedup-panel-#{key}"
       end
 
-      # Additional context for any panel to render tooltips for.
-      #
-      # Returns Hash.
-      def context
-        {}
-      end
-
-      def context?
-        context.any?
-      end
-
       # The data results that are inserted at the end of the request for use in
       # deferred placeholders in the Speedup the bar.
       #
@@ -77,16 +66,33 @@ module Speedup
         ActiveSupport::Notifications.subscribe(*args, &block)
       end
 
-      def register(*args)
-        subscribe(*args) do |*args|
-          next unless Speedup.enabled?
-          evt = ActiveSupport::Notifications::Event.new(*args)
-          Speedup.request.store_event(evt) unless filter_event?(evt)
+      def register(*args, &block)
+        if block_given?
+          subscribe(*args, &block)
+        else
+          subscribe(*args) do |*args|
+            next unless Speedup.enabled?
+            evt = ActiveSupport::Notifications::Event.new(*args)
+            store_event(evt) unless filter_event?(evt)
+          end
         end
       end
 
+      # Stores en event to request context.
+      # Uses a event_to_data method.
+      def store_event(evt, key=nil)
+        key ||= self.key
+        Speedup.request.store_event(key, event_to_data(evt) )
+      end
+
+      # Transfer the event to actual stored data.
+      # Default implementation takes full payload, event time and event duration.
+      def event_to_data(evt)
+        evt.payload.merge( time: evt.time, duration: evt.duration )
+      end
+
       def filter_event?(evt)
-        Speedup.enabled?
+        !Speedup.enabled?
       end
 
       protected

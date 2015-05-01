@@ -45,11 +45,11 @@ module Speedup
   end
 
   def self.setup_request(request_id)
-    Thread.current[:speed_up_rails] = Speedup::Request.new(request_id)
+    Thread.current[:speedup_rails] = Speedup::Request.new(request_id)
   end
 
   def self.request
-    Thread.current[:speed_up_rails]
+    Thread.current[:speedup_rails]
   end
 
   def self.collectors=(collectors)
@@ -68,6 +68,15 @@ module Speedup
   def self.show_bar?
     !!@show_bar
   end
+
+  def self.automount=(value)
+    @automount = !!value
+  end
+
+  def self.automount?
+    !!@automount
+  end
+
 
   def self.prepare_collectors
     @collectors = @collector_classes.map{|col_kls| col_kls.new }

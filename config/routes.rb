@@ -4,3 +4,5 @@ SpeedupRails::Engine.routes.draw do
     get 'rubyprof', on: :member
   end
 end
+
+SpeedupRails::Engine.automount! if Speedup.automount?

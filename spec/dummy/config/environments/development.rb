@@ -41,5 +41,6 @@ Rails.application.configure do
 
   # config.speedup.adapter = :memory
   # config.speedup.adapter = :influxdb, { database: 'speeduprails', username: 'ezrondre', password: 'agent', host: 'sandbox.influxdb.com' }
-  config.speedup.adapter = :server, { url: 'http://localhost:8080', api_key: '7080666ebcb6e06688a7a35a4b7f378d' }
+  # config.speedup.adapter = :server, { url: 'http://localhost:8080', api_key: '4e557137390141bea520da8cb78e1ca2' }
+  # config.speedup.adapter = :file
 end

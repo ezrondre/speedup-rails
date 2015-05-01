@@ -27,10 +27,15 @@ module Speedup
         end
         after_request do
           Bullet.notification_collector && Bullet.notification_collector.collection.each do |notification|
-            Speedup.request.store_bullet_notification(notification)
+            store_event(notification)
           end
           Bullet.end_request
         end
+      end
+
+      # use this method to keep convention
+      def event_to_data(notification)
+        {type: notification.class.name.split('::').last, name: notification.title, caller: notification.send(:call_stack_messages), message: notification.body}
       end
 
 
