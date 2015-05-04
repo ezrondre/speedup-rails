@@ -8,19 +8,23 @@ module Speedup
     end
 
     def call(env)
+      return @app.call(env) if !Speedup.enabled?
+
       Speedup.setup_request(env['action_dispatch.request_id'])
       status, headers, body = @app.call(env)
       Speedup.request.save
-      case status
-      when 200..299
-        if Speedup.show_bar?
+
+      if Speedup.show_bar? && headers['Content-Type'] =~ /text\/html/
+        case status.to_i
+        when 200..299, 400..500
           body = SpeedupBody.new(body, @redirects)
           # headers['Content-Length'] = body.collect{|row| row.length}.sum.to_s
+          @redirects = []
+        when 300..400
+          @redirects.push(Speedup.request.id)
         end
-        @redirects = []
-      when 300..400
-        @redirects.push(Speedup.request.id)
       end
+
       [status, headers, body]
     rescue Exception => exception
        Speedup.request && Speedup.request.save

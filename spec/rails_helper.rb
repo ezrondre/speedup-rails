@@ -2,6 +2,10 @@
 ENV['RAILS_ENV'] ||= 'test'
 require 'spec_helper'
 require File.expand_path('../dummy/config/environment', __FILE__)
+
+# to not fail with prepare queries
+Thread.current[:speedup_rails] = Speedup::Request.new('dummy')
+
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 

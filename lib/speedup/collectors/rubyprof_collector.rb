@@ -2,7 +2,7 @@ module Speedup
   module Collectors
     class RubyprofCollector < Collector
 
-      def initialize
+      def initialize(options={})
         require 'ruby-prof'
         @results_dir = Rails.root.join('tmp', 'rubyprof')
         Dir.mkdir( @results_dir ) unless File.directory?(@results_dir)

@@ -30,7 +30,7 @@ module SpeedupRails
     config.speedup.collectors = [:request, :queries, :partials]
     config.speedup.collectors += [:bullet] if Rails.env.development?
 
-    config.speedup.show_bar = true
+    config.speedup.show_bar = Rails.env.development?
     config.speedup.automount = true
 
     initializer 'speedup.set_configs' do |app|
@@ -52,7 +52,7 @@ module SpeedupRails
     end
 
     initializer "speedup.add_middleware" do |app|
-      app.middleware.use 'Speedup::Middleware'
+      app.middleware.insert_after 'ActionDispatch::RequestId', 'Speedup::Middleware'
     end
 
   end
