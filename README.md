@@ -1,6 +1,6 @@
 # SpeedupRails
-[travis-image]: https://travis-ci.org/ezrondre/speedup-rails.png?branch=master
-[travis-link]: https://travis-ci.org/ezrondre/speedup-rails
+[![Gem Version](https://badge.fury.io/rb/speedup-rails.svg)](http://badge.fury.io/rb/speedup-rails)
+[![Build Status](https://travis-ci.org/ezrondre/speedup-rails.png?branch=master)](https://travis-ci.org/ezrondre/speedup-rails)
 
 ## Overview
 
