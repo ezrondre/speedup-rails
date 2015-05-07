@@ -25,7 +25,7 @@ module SpeedupRails
     config.speedup = ActiveSupport::OrderedOptions.new
 
     # Default adapter
-    config.speedup.adapter = :memory
+    config.speedup.adapter = Rails.env.development? ? :memory : :file
 
     config.speedup.collectors = [:request, :queries, :partials]
     config.speedup.collectors += [:bullet] if Rails.env.development?

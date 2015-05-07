@@ -50,18 +50,6 @@ module Speedup
         "speedup-panel-#{key}"
       end
 
-      # The data results that are inserted at the end of the request for use in
-      # deferred placeholders in the Speedup the bar.
-      #
-      # Returns Hash.
-      def results
-        {}
-      end
-
-      def results?
-        results.any?
-      end
-
       def subscribe(*args, &block)
         ActiveSupport::Notifications.subscribe(*args, &block)
       end
