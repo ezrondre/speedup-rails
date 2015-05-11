@@ -9,11 +9,11 @@ It collects performance data in Rails application.
 For longterm vizualization you can use a counterpart engine called [perfdashboard][perfdashboard].
 But you can use 3rd party vizualization as well, Grafana with InfluxDB engine is a good example.
 
-[perfdashboard]: https://github.com/ezrondre/speedup-rails
+[perfdashboard]: https://github.com/ezrondre/perfdashboard
 
 ## Install
 
-The easiest way to install speedup-rails is by using Ruby Gems.  To install put in your gem file:
+The easiest way to install speedup-rails is by using Ruby Gems.  To install put in your Gemfile:
 
 ```ruby
 gem 'speedup-rails'
