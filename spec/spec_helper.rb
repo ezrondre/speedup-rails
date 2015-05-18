@@ -40,6 +40,10 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+  config.before(:each) do
+    allow(Speedup).to receive(:enabled?).and_return(true)
+  end
+
   # config.before(:each) do
   #   Speedup.setup_request(SecureRandom.hex(10))
   # end

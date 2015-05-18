@@ -29,12 +29,24 @@ module Speedup
 
         it 'calls block passed in' do
           receiver = double('receiver')
-          expect(receiver).to receive(:called_from_block)
-
-          subject.subscribe('.notification-test') do
+          subscriber = subject.subscribe('.notification-test') do
             receiver.called_from_block
           end
+
+          expect(receiver).to receive(:called_from_block)
           ActiveSupport::Notifications.instrument('.notification-test')
+
+          ActiveSupport::Notifications.unsubscribe(subscriber)
+        end
+      end
+
+      context '#register' do
+        it 'store_event if registered event is fired' do
+          expect(subject).to receive(:store_event)
+
+          subscriber = subject.register('.notification-test')
+          ActiveSupport::Notifications.instrument('.notification-test')
+          ActiveSupport::Notifications.unsubscribe(subscriber)
         end
       end
 
