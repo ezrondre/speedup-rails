@@ -20,6 +20,7 @@ module SpeedupRails
 
       it 'renders a bar' do
         get :show, id: request_id
+        expect(response).to be_success
       end
 
     end
