@@ -54,7 +54,7 @@ module Speedup
       end
 
       def close
-        @rack_body.close
+        @rack_body.close if @rack_body && @rack_body.respond_to?(:close)
       end
 
       def respond_to?(method, include_private = false)
