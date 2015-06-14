@@ -10,11 +10,13 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-# To use a debugger
-# gem 'byebug', group: [:development, :test]
+group :development, :test do
+  gem 'awesome_print'
+  gem 'pry-rails'
+  gem 'rdoc'
 
-gem 'rdoc', group: [:development, :test]
-gem 'awesome_print', group: [:development, :test]
-gem 'pry-rails', group: [:development, :test]
+  # To use a debugger
+  # gem 'byebug'
 
-# gem 'perfdashboard', group:[:development, :test], path: '../perfdashboard'
+  # gem 'perfdashboard', path: '../perfdashboard'
+end
