@@ -6,10 +6,10 @@
 
 SpeedUpRails is a development helper for a rails application.
 It collects performance data in Rails application.
-For longterm vizualization you can use a counterpart engine called [perfdashboard][perfdashboard].
+For longterm vizualization you can use a counterpart engine called [speedup-dashboard][speedup-dashboard].
 But you can use 3rd party vizualization as well, Grafana with InfluxDB engine is a good example.
 
-[perfdashboard]: https://github.com/ezrondre/perfdashboard
+[speedup-dashboard]: https://github.com/ezrondre/speedup-dashboard
 
 ## Install
 
