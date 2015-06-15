@@ -63,6 +63,7 @@ GEM
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     erubis (2.7.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -143,6 +144,11 @@ GEM
     rspec-support (3.2.2)
     ruby-prof (0.15.8)
     safe_yaml (1.0.4)
+    simplecov (0.10.0)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     slop (3.6.0)
     speedup-adapters (0.0.6)
       httpclient
@@ -175,6 +181,7 @@ DEPENDENCIES
   pry-rails
   rdoc
   rspec-rails
+  simplecov (~> 0.9)
   speedup-rails!
   sqlite3
   webmock

@@ -14,7 +14,13 @@
 #
 # The `.rspec` file also contains a few flags that are not defaults but that
 # users commonly want.
-#
+
+# Note: SimpleCov must be loaded before any of our code is required.
+require 'simplecov'
+SimpleCov.start 'rails' do
+  add_filter '/spec/'
+end
+
 require_relative 'support/helper_methods'
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
