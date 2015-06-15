@@ -145,7 +145,7 @@ module Speedup
               speedup_rails_ajax( url , function(xhr) {
                 res = stripScript( xhr.responseText );
                 appendHtml(document.getElementById('speedup_rails_bar'), res[0]);
-                executeScript(res[1])
+                executeScript(res[1]);
               });
             }
             function appendHtml(el, str) {
@@ -171,7 +171,7 @@ module Speedup
                   var head = document.getElementsByTagName('head')[0];
                   var scriptElement = document.createElement('script');
                   scriptElement.setAttribute('type', 'text/javascript');
-                  scriptElement.innerText = scripts;
+                  scriptElement.innerHTML = scripts;
                   head.appendChild(scriptElement);
                   head.removeChild(scriptElement);
               }
