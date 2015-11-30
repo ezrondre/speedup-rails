@@ -1,9 +1,8 @@
-<% info_class = 'additional_info' + ( @redirect ? "-#{@redirect}" : '' ) %>
 <ul class="speedup_main_bar speedup_main_bar_<%= @redirect %><%= ' redirect' if @redirect %>">
   <% @collectors.each do |col| %>
     <% next unless col.render? %>
     <li>
-      <%= render "speedup_rails/collectors/#{col.key}", data: @request[col.key] || [], key: col.key %>
+      <%= render "speedup_rails/collectors/#{col.key}", data: @request[col.key] || [], key: col.key, request_data: @request[:request] %>
     </li>
   <% end %>
 </ul>

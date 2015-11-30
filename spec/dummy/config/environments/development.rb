@@ -1,3 +1,5 @@
+WebMock.allow_net_connect! #temporary fix
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -41,6 +43,6 @@ Rails.application.configure do
 
   # config.speedup.adapter = :memory
   # config.speedup.adapter = :influxdb, { database: 'speeduprails', username: 'ezrondre', password: 'agent', host: 'sandbox.influxdb.com' }
-  # config.speedup.adapter = :server, { url: 'http://localhost:8080', api_key: '4e557137390141bea520da8cb78e1ca2' }
+  # config.speedup.adapter = :server, { url: 'http://localhost:3030', api_key: 'ca8956557c40d4716cca5ac6278aa651' }
   # config.speedup.adapter = :file
 end

@@ -1,5 +1,5 @@
 <span class="speedup_rails_<%= key %>" data-key="<%= key %>">
-  <%= image_tag('speedup_rails/file-icon.png', alt: '') %><%= data.count %> partials (<%= render_ms(data.sum{|t| t[:duration] }) %>)
+  <%= image_tag('speedup_rails/file-icon.png', alt: '') %><%= data.count %> partials (<%= render_ms(request_data[:view_duration]) %>)
 </span>
 <div class="additional_info">
   <div class="partials">
