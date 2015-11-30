@@ -1,11 +1,13 @@
-<%= image_tag('speedup_rails/file-icon.png', alt: '') %><%= data.count %> partials (<%= render_ms(data.sum{|t| t[:duration] }) %>)
-<% content_for(:speed_up_additional_bars) do %>
+<span class="speedup_rails_<%= key %>" data-key="<%= key %>">
+  <%= image_tag('speedup_rails/file-icon.png', alt: '') %><%= data.count %> partials (<%= render_ms(data.sum{|t| t[:duration] }) %>)
+</span>
+<div class="additional_info">
   <div class="partials">
     <% data.each do |template| %>
       <div>
-        <span class="duration"><%= render_ms(template[:duration]) %></span>
+        <span class="duration <%= template[:duration] > 100 ? 'duration-warning' : 'duration-info' %>"><%= render_ms(template[:duration]) %></span>
         <span class="template"><%= template[:identifier] %></span>
       </div>
     <% end %>
   </div>
-<% end %>
+</div>

@@ -1,1 +1,3 @@
-<%= link_to 'ruby-prof', rubyprof_result_path(@request_id) %>
+<span class="speedup_rails_<%= key %>" data-key="<%= key %>">
+  <%= link_to 'ruby-prof', rubyprof_result_path(@request_id) %>
+</span>

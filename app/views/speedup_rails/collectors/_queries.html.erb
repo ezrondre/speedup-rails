@@ -1,11 +1,13 @@
-<%= image_tag('speedup_rails/database.png', alt: '') %><%= data.count %> queries
-<% content_for(:speed_up_additional_bars) do %>
+<span class="speedup_rails_<%= key %>" data-key="<%= key %>">
+  <%= image_tag('speedup_rails/database.png', alt: '') %><%= data.count %> queries
+</span>
+<div class="additional_info">
   <div class="queries">
     <% data.each do |query| %>
       <div>
-        <span class="duration"><%= (query[:duration] * 100).round.to_f / 100 %> ms</span>
+        <span class="duration <%= query[:duration] > 10 ? 'duration-warning' : 'duration-info' %>"><%= render_ms(query[:duration])%></span>
         <span class="query"><%= query[:query] %></span>
       </div>
     <% end %>
   </div>
-<% end %>
+</div>

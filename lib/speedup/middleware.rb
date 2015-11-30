@@ -95,18 +95,18 @@ module Speedup
         def styles
           <<-END_STYLES
             <style type="text/css">
-              #speedup_rails_bar,
-              #speedup_rails_bar .additional_info > div {
+              #speedup_rails_bar {
                 position: fixed;
                 bottom: 5px;
                 right: 5px;
                 min-width: 250px;
+                z-index: 100;
               }
               #speedup_rails_bar .redirect {
                 color: #444;
               }
               #speedup_rails_bar .speedup_main_bar,
-              #speedup_rails_bar .additional_info > div
+              #speedup_rails_bar .additional_info
               {
                 border: 1px solid #c9c9c9;
                 background-color: #EDEAE0;
@@ -117,6 +117,15 @@ module Speedup
               }
               #speedup_rails_bar > ul { list-style: none; clear: left; margin: 0; padding: 0; margin-left: 4px; }
               #speedup_rails_bar > ul > li { float: left; overflow: visible; }
+              #speedup_rails_bar .additional_info {
+                position: absolute;
+                bottom: 100%;
+                right: 0;
+                padding: 5px;
+                display: none;
+                height: 500px;
+              }
+              #speedup_rails_bar > ul > li:hover .additional_info { display: block; max-width: 200%; }
               #speedup_rails_bar li > span { padding: 0 4px; }
               #speedup_rails_bar img {
                 vertical-align: middle;
@@ -125,15 +134,17 @@ module Speedup
                 margin-right: 3px;
                 width: 18px;
               }
-              #speedup_rails_bar .additional_info > div {
-                padding: 5px;
-                display: none;
-              }
               #speedup_rails_bar .additional_info > div > div {
                 border-bottom: 1px solid #c9c9c9;
               }
               #speedup_rails_bar .additional_info > div > div:last-child {
                 border-bottom: none;
+              }
+              #speedup_rails_bar .additional_info .duration {
+                font-weight: bold;
+              }
+              #speedup_rails_bar .additional_info .duration.duration-warning {
+                color: red;
               }
             </style>
           END_STYLES

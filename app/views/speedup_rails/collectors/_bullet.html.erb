@@ -1,8 +1,12 @@
-<%= image_tag('speedup_rails/alert.jpg', alt: '') %><%= data.count %> problems
-<% content_for(:speed_up_additional_bars) do %>
+<span class="speedup_rails_<%= key %>" data-key="<%= key %>">
+  <%= image_tag('speedup_rails/alert.jpg', alt: '') %><%= data.count %> problems
+</span>
+<% if data.any? %>
+<div class="additional_info">
   <div class="<%= key %>">
   <% data.each do |problem| %>
     <div><%= problem[:caller].gsub(/\n/, '<br />').html_safe %></div>
   <% end %>
   </div>
-<% end if data.any? %>
+</div>
+<% end %>
