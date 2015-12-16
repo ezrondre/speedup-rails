@@ -29,7 +29,7 @@ module Speedup
           result = RubyProf.stop if enabled?
 
           # Print a flat profile to text
-          printer = RubyProf::GraphHtmlPrinter.new(result)
+          printer = RubyProf::CallStackPrinter.new(result)
           ::File.open(@results_dir.join( Speedup.request.id ), 'wb') do |file|
             printer.print(file)
           end

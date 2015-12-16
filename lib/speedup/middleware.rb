@@ -86,6 +86,12 @@ module Speedup
         @redirects.each_with_index do |req_id, idx|
           str << " loadRequestData('#{SpeedupRails::Engine.routes.url_helpers.result_path(req_id, redirect: idx)}');"
         end
+        str << "if( typeof jQuery !== 'undefined' ) {
+              jQuery(document).ajaxComplete(function(evt, xhr, settings){
+                if(! settings.url.match('#{SpeedupRails::Engine.routes.url_helpers.result_path('')}') )
+                  loadRequestData('#{SpeedupRails::Engine.routes.url_helpers.result_path('REQUEST_ID')}'.replace('REQUEST_ID', xhr.getResponseHeader('X-Request-Id')));
+              });
+            }"
         str << '</script>'
         str
       end
@@ -100,7 +106,7 @@ module Speedup
                 bottom: 5px;
                 right: 5px;
                 min-width: 250px;
-                z-index: 100;
+                z-index: 8;
               }
               #speedup_rails_bar .redirect {
                 color: #444;
@@ -145,6 +151,14 @@ module Speedup
               }
               #speedup_rails_bar .additional_info .duration.duration-warning {
                 color: red;
+              }
+              #speedup_rails_bar .additional_info .backtrace {
+                font-size: 95%;
+                margin: 5px 0 0 20px;
+                line-height: 1.4em;
+              }
+              #speedup_rails_bar .additional_info .backtrace .backtrace_line:not(:first-child) {
+                display: none;
               }
             </style>
           END_STYLES

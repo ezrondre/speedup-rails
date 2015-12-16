@@ -1,13 +1,18 @@
 <span class="speedup_rails_<%= key %>" data-key="<%= key %>">
-  <%= image_tag('speedup_rails/file-icon.png', alt: '') %><%= data.count %> partials (<%= render_ms(request_data[:view_duration]) %>)
+  <%= image_tag('speedup_rails/file-icon.png', alt: '') %><%= data.count %> partials
+  <% unless redirect %>
+    (<%= render_ms(request_data[:view_duration]) %>)
+  <% end %>
 </span>
-<div class="additional_info">
-  <div class="partials">
-    <% data.each do |template| %>
-      <div>
-        <span class="duration <%= template[:duration] > 100 ? 'duration-warning' : 'duration-info' %>"><%= render_ms(template[:duration]) %></span>
-        <span class="template"><%= template[:identifier] %></span>
-      </div>
-    <% end %>
+<% if data.any? %>
+  <div class="additional_info">
+    <div class="partials">
+      <% data.each do |template| %>
+        <div>
+          <span class="duration <%= template[:duration] > 100 ? 'duration-warning' : 'duration-info' %>"><%= render_ms(template[:duration]) %></span>
+          <span class="template"><%= template[:identifier] %></span>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
+<% end %>

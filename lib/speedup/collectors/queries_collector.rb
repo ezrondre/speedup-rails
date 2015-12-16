@@ -12,7 +12,7 @@ module  Speedup
       end
 
       def event_to_data(evt)
-        {time: evt.time, duration: evt.duration, name: evt.payload[:name], query: evt.payload[:sql]}
+        {time: evt.time, duration: evt.duration, name: evt.payload[:name], query: evt.payload[:sql], backtrace: clean_trace}
       end
 
     end

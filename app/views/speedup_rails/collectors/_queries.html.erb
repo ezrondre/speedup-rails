@@ -7,7 +7,25 @@
       <div>
         <span class="duration <%= query[:duration] > 10 ? 'duration-warning' : 'duration-info' %>"><%= render_ms(query[:duration])%></span>
         <span class="query"><%= query[:query] %></span>
+        <div class="backtrace">
+          <% query[:backtrace].each do |line| %>
+            <span class="backtrace_line"><%= line %><br/></span>
+          <% end %>
+        </div>
       </div>
     <% end %>
   </div>
 </div>
+
+<script type="text/javascript">
+  var traces = document.getElementById("speedup_collectorinfo_<%= key %>").getElementsByClassName('backtrace')
+  for (var j = traces.length - 1; j >= 0; j--) {
+    traces[j].onclick = function() {
+      var i;
+      var x = this.getElementsByClassName("backtrace_line");
+      for (i = 0; i < x.length; i++) {
+          x[i].style.display = "inline";
+      }
+    };
+  };
+</script>

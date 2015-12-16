@@ -85,6 +85,10 @@ module Speedup
 
       protected
 
+        def clean_trace
+          Rails.backtrace_cleaner.clean(caller[2..-1])
+        end
+
         def setup_subscribes
           # pass
         end
