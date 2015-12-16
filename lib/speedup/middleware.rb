@@ -138,7 +138,7 @@ module Speedup
                 right: 0;
                 padding: 5px;
                 display: none;
-                height: 500px;
+                max-height: 500px;
                 max-width: 200%;
                 overflow: scroll;
               }
