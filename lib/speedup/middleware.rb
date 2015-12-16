@@ -121,8 +121,17 @@ module Speedup
                 overflow: auto;
                 font: normal normal 12px/21px Tahoma, sans-serif;
               }
-              #speedup_rails_bar > ul { list-style: none; clear: left; margin: 0; padding: 0; margin-left: 4px; }
-              #speedup_rails_bar > ul > li { float: left; overflow: visible; }
+              #speedup_rails_bar > ul.speedup_main_bar {
+                list-style: none;
+                clear: left;
+                margin: 0;
+                padding: 0;
+                margin-left: 4px;
+                overflow: visible;
+                position: relative;
+                height: 22px;
+              }
+              #speedup_rails_bar > ul > li { float: left; }
               #speedup_rails_bar .additional_info {
                 position: absolute;
                 bottom: 100%;
@@ -130,8 +139,10 @@ module Speedup
                 padding: 5px;
                 display: none;
                 height: 500px;
+                max-width: 200%;
+                overflow: scroll;
               }
-              #speedup_rails_bar > ul > li:hover .additional_info { display: block; max-width: 200%; }
+              #speedup_rails_bar > ul > li:hover .additional_info { display: block; }
               #speedup_rails_bar li > span { padding: 0 4px; }
               #speedup_rails_bar img {
                 vertical-align: middle;
