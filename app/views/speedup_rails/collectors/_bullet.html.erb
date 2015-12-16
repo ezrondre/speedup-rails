@@ -1,5 +1,8 @@
+<div class="icon_container">
+  <%= image_tag('speedup_rails/icons.png', alt: '', style: 'clip: rect(0, 20px, 20px, 0px); left: 0;') %>
+</div>
 <span class="speedup_rails_<%= key %>" data-key="<%= key %>">
-  <%= image_tag('speedup_rails/alert.jpg', alt: '') %><%= data.count %> problems
+  <%= data.count %> problems
 </span>
 <% if data.any? %>
 <div class="additional_info">

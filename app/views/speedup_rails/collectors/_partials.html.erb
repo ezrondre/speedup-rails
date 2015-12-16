@@ -1,5 +1,8 @@
+<div class="icon_container">
+  <%= image_tag('speedup_rails/icons.png', alt: '', style: 'clip: rect(0, 60px, 20px, 40px); left: -40px;') %>
+</div>
 <span class="speedup_rails_<%= key %>" data-key="<%= key %>">
-  <%= image_tag('speedup_rails/file-icon.png', alt: '') %><%= data.count %> partials
+  <%= data.count %> partials
   <% unless redirect %>
     (<%= render_ms(request_data[:view_duration]) %>)
   <% end %>

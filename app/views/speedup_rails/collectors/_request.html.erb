@@ -1,5 +1,14 @@
+<div class="icon_container">
+  <%= image_tag('speedup_rails/icons.png', alt: '', style: 'clip: rect(0, 80px, 20px, 60px); left: -60px;') %>
+</div>
 <span class="speedup_rails_<%= key %>" data-key="<%= key %>">
-
-  <%= image_tag('speedup_rails/input.png', alt: '') %> <%= data[:controller] %>#<%= data[:action] %>
-  <%= image_tag('speedup_rails/time.png', alt: '') %> <%= (data[:duration] * 100).round.to_f / 100 %> ms
+  <%= data[:controller] %>#<%= data[:action] %>
+</span>
+</li>
+<li id="speedup_collectorinfo_request2">
+<div class="icon_container">
+  <%= image_tag('speedup_rails/icons.png', alt: '', style: 'clip: rect(0, 100px, 20px, 80px); left: -80px;') %>
+</div>
+<span class="speedup_rails_<%= key %>" data-key="<%= key %>">
+  <%= (data[:duration] * 100).round.to_f / 100 %> ms
 </span>
