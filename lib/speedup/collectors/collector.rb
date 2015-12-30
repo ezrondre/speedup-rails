@@ -70,7 +70,7 @@ module Speedup
       # Uses a event_to_data method.
       def store_event(evt, key=nil)
         key ||= self.key
-        Speedup.request.store_event(key, event_to_data(evt) )
+        Speedup.request.store_event(key, event_to_data(evt) ) if Speedup.request
       end
 
       # Transfer the event to actual stored data.

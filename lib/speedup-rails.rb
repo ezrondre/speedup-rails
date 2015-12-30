@@ -86,6 +86,12 @@ module Speedup
     @collectors
   end
 
+  def self.profile(&block)
+    @rubyprof ||= @collectors.detect{|c| c.key == :rubyprof}
+    raise "You need to enable rubyprof collector to profile!" unless @rubyprof
+    @rubyprof.profile(&block)
+  end
+
 end
 
 ActiveSupport.run_load_hooks(:speedup, Speedup) if Speedup.enabled?

@@ -21,7 +21,7 @@
 </div>
 
 <script type="text/javascript">
-  var traces = document.getElementById("speedup_collectorinfo_<%= key %>").getElementsByClassName('backtrace')
+  var traces = document.getElementById("speedup_<%= request_id %>_collectorinfo_<%= key %>").getElementsByClassName('backtrace')
   for (var j = traces.length - 1; j >= 0; j--) {
     traces[j].onclick = function() {
       var i;

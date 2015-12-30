@@ -34,6 +34,11 @@ module SpeedupRails
     config.speedup.show_bar = Rails.env.development?
     config.speedup.automount = true
 
+    initializer :assets do |config|
+      Rails.application.config.assets.precompile += %w(speedup_rails/icons.png)
+      Rails.application.config.assets.paths << root.join("app", "assets", "images")
+    end
+
     initializer 'speedup.set_configs' do |app|
       ActiveSupport.on_load(:speedup) do
         app.config.speedup.each do |k,v|

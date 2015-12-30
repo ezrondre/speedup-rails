@@ -10,7 +10,7 @@ module Speedup
       end
 
       def parse_options
-        # pass
+        @profile_request = !!@options[:profile_request]
       end
 
       # The data results that are inserted at the end of the request for use in
@@ -22,16 +22,12 @@ module Speedup
       end
 
       def setup_subscribes
-        before_request do
-          RubyProf.start if enabled?
-        end
-        after_request do
-          result = RubyProf.stop if enabled?
-
-          # Print a flat profile to text
-          printer = RubyProf::CallStackPrinter.new(result)
-          ::File.open(@results_dir.join( Speedup.request.id ), 'wb') do |file|
-            printer.print(file)
+        if enabled? && @profile_request
+          before_request do
+            start_prof
+          end
+          after_request do
+            end_prof
           end
         end
       end
@@ -40,6 +36,39 @@ module Speedup
       def filter_event?(evt)
         super || evt.payload[:controller].start_with?('Speedup')
       end
+
+      def start_prof
+        RubyProf.start
+      end
+
+      def end_prof(result_id=nil)
+        result = RubyProf.stop
+
+        Speedup.request.store_event(key, result_id )
+
+        # Print a flat profile to text
+        printer = printer_klass.new(result)
+        ::File.open(@results_dir.join( Speedup.request.id + result_id.to_s ), 'wb') do |file|
+          printer.print(file)
+        end
+      end
+
+      def profile(result_id=nil, &block)
+        start_prof
+        yield
+        end_prof(next_id)
+      end
+
+      private
+
+        def next_id
+          @next_id = @next_id.to_i + 1
+        end
+
+        def printer_klass
+          # RubyProf::GraphHtmlPrinter
+          RubyProf::CallStackPrinter
+        end
 
     end
   end

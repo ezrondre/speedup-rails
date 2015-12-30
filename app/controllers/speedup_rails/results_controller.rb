@@ -4,13 +4,17 @@ module SpeedupRails
     def show
       @request_id = params[:id]
       @request = Speedup::Request.get(@request_id)
-      @collectors = Speedup.collectors
-      @redirect = params[:redirect]
-      render layout: false
+      if @request
+        @collectors = Speedup.collectors
+        @redirect = params[:redirect]
+        render layout: false
+      else
+        render nothing: true, status: :not_found
+      end
     end
 
     def rubyprof
-      send_file Rails.root.join('tmp', 'rubyprof', params[:id] ), :type => 'text/html', :disposition => 'inline'
+      send_file Rails.root.join('tmp', 'rubyprof', params[:id] + params[:prof_id]), :type => 'text/html', :disposition => 'inline'
     end
 
   end

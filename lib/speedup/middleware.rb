@@ -31,6 +31,10 @@ module Speedup
       raise exception
     end
 
+    def speedup_request?(env)
+      env['REQUEST_PATH'].starts_with?('/speedup_rails')
+    end
+
     class SpeedupBody
       include Enumerable
 
@@ -88,8 +92,9 @@ module Speedup
         end
         str << "if( typeof jQuery !== 'undefined' ) {
               jQuery(document).ajaxComplete(function(evt, xhr, settings){
-                if(! settings.url.match('#{SpeedupRails::Engine.routes.url_helpers.result_path('')}') )
-                  loadRequestData('#{SpeedupRails::Engine.routes.url_helpers.result_path('REQUEST_ID')}'.replace('REQUEST_ID', xhr.getResponseHeader('X-Request-Id')));
+                var request_id = xhr.getResponseHeader('X-Request-Id');
+                if( request_id && !settings.url.match('#{SpeedupRails::Engine.routes.url_helpers.result_path('')}') )
+                  loadRequestData('#{SpeedupRails::Engine.routes.url_helpers.result_path('REQUEST_ID')}'.replace('REQUEST_ID', request_id));
               });
             }"
         str << '</script>'
