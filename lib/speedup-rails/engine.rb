@@ -34,6 +34,8 @@ module SpeedupRails
     config.speedup.show_bar = Rails.env.development?
     config.speedup.automount = true
 
+    config.speedup.css = {zindex: 10}
+
     initializer :assets do |config|
       Rails.application.config.assets.precompile += %w(speedup_rails/icons.png)
       Rails.application.config.assets.paths << root.join("app", "assets", "images")

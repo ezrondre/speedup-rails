@@ -18,7 +18,7 @@ module Speedup
         case status.to_i
         when 200..299, 400..500
           body = SpeedupBody.new(body, @redirects)
-          # headers['Content-Length'] = body.collect{|row| row.length}.sum.to_s
+          headers['Content-Length'] = (headers['Content-Length'].to_i + body.bar_html.length).to_s if headers['Content-Length'] && body.render_bar?
           @redirects = []
         when 300..400
           @redirects.push(Speedup.request.id)
@@ -41,6 +41,10 @@ module Speedup
       def initialize(rack_body, redirects=[])
         @rack_body = rack_body
         @redirects = redirects
+      end
+
+      def render_bar?
+        any?{|row| row =~ /<\/body>/ }
       end
 
       def each(*params, &block)
@@ -111,7 +115,10 @@ module Speedup
                 bottom: 5px;
                 right: 5px;
                 min-width: 250px;
-                z-index: 8;
+                z-index: #{Speedup.css[:zindex]};
+                color: initial;
+                font-family: initial;
+                letter-spacing: initial;
               }
               #speedup_rails_bar .redirect {
                 color: #444;

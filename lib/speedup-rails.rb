@@ -52,11 +52,21 @@ module Speedup
     Thread.current[:speedup_rails]
   end
 
+  def self.collector_options
+    @collector_options ||= {}
+  end
+
   def self.collectors=(collectors)
     collectors = Array.wrap(collectors)
     @collector_classes = collectors.map do |collector|
-      collector_class_name = collector.to_s.camelize + 'Collector'
-      require "speedup/collectors/#{collector}_collector"
+      if collector.is_a?(Hash)
+        collector_name = collector.keys.first
+        collector_options[collector_name] = collector[collector_name]
+      else
+        collector_name = collector
+      end
+      collector_class_name = collector_name.to_s.camelize + 'Collector'
+      require "speedup/collectors/#{collector_name}_collector"
       Speedup::Collectors.const_get(collector_class_name)
     end
   end
@@ -77,9 +87,16 @@ module Speedup
     !!@automount
   end
 
+  def self.css=(value)
+    @css = value
+  end
+
+  def self.css
+    @css || {}
+  end
 
   def self.prepare_collectors
-    @collectors = @collector_classes.map{|col_kls| col_kls.new }
+    @collectors = @collector_classes.map{|col_kls| col_kls.new(collector_options[col_kls.key] || {}) }
   end
 
   def self.collectors

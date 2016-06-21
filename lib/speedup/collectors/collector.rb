@@ -2,6 +2,10 @@ module Speedup
   module Collectors
     class Collector
 
+      def self.key
+        self.name.to_s.split('::').last.gsub(/Collector$/, '').underscore.to_sym
+      end
+
       def initialize(options = {})
         @options = options
 
@@ -29,7 +33,7 @@ module Speedup
 
       # Returns Symbol.
       def key
-        self.class.name.to_s.split('::').last.gsub(/Collector$/, '').underscore.to_sym
+        self.class.key
       end
       alias defer_key key
 

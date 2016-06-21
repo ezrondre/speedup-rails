@@ -64,7 +64,7 @@ module Speedup
 
         it 'store_event to the request with right_key' do
           request = double('request')
-          expect(Speedup).to receive(:request).and_return(request)
+          allow(Speedup).to receive(:request).and_return(request)
           expect(subject).to receive(:key).and_return(:right_key)
 
           expect(request).to receive(:store_event).with(:right_key, kind_of(Hash))
