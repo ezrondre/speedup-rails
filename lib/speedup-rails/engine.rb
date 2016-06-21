@@ -28,7 +28,7 @@ module SpeedupRails
     config.speedup.adapter = Rails.env.development? ? :memory : :file
 
     config.speedup.collectors = [:request, :queries, :partials]
-    config.speedup.collectors += [:bullet] if Rails.env.development?
+    config.speedup.collectors += [:bullet, :rubyprof] if Rails.env.development?
     config.speedup.collectors = [] if Rails.env.test?
 
     config.speedup.show_bar = Rails.env.development?

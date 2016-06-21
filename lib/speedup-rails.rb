@@ -57,14 +57,17 @@ module Speedup
   end
 
   def self.collectors=(collectors)
-    collectors = Array.wrap(collectors)
-    @collector_classes = collectors.map do |collector|
+    collector_names = Array.wrap(collectors).map do |collector|
       if collector.is_a?(Hash)
         collector_name = collector.keys.first
         collector_options[collector_name] = collector[collector_name]
+        collector_name
       else
-        collector_name = collector
+        collector
       end
+    end.uniq
+
+    @collector_classes = collector_names.map do |collector_name|
       collector_class_name = collector_name.to_s.camelize + 'Collector'
       require "speedup/collectors/#{collector_name}_collector"
       Speedup::Collectors.const_get(collector_class_name)

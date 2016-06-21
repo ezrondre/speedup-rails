@@ -51,8 +51,42 @@ This is your options:
 * Queries - not as mandatory. Impact is pretty low, but if you have a lot of queries in your request, you can consider it.
 * Partials - same as queries, but watching over rendered partials.
 * Bullet - Using a [bullet][bullet] and vizualize its results.
+* Profiler - Using a rubyprofiler to profile full request or
+
+every option is in form of collector
 
 [bullet]: https://github.com/flyerhzm/bullet
+
+#### Selecting a collector
+
+Collectors are defined by a configuration ( in environment file or in application.rb)
+
+Add Profiler collector:
+```ruby
+  Rails.application.configure do
+    # config.speedup.collectors << :rubyprof
+    config.speedup.collectors << {rubyprof: {profile_request: true} } #collector with options
+  end
+```
+
+default collecotors are :request, :queries, :partials ( + :bullet and :rubyprof in developement )
+
+#### Profiling
+
+Everything you need to do is enable rubyprof collector ( default in developement )
+and wrap profiled code in block:
+
+```ruby
+  Speedup.profile do
+    ...
+  end
+```
+
+if you want to profile full request, just set
+```ruby
+  { profile_request: true }
+```
+in rubyprof options
 
 ## License
 
