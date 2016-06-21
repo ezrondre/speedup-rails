@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'bullet'
   s.add_dependency 'ruby-prof'
-  s.add_dependency 'rack-mini-profiler'
   s.add_dependency 'speedup-adapters'
 
   s.add_development_dependency "sqlite3"
