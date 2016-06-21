@@ -37,11 +37,24 @@ Available adapters are:
 
 Adapter can be chosen in config file:
 ```ruby
-  config.speedup.adapter = :server, {url: 'http://path/to/server', api_key: '<your_key_generated_by_server>'}
+  Rails.application.configure do
+    config.speedup.adapter = :server, {url: 'http://path/to/server', api_key: '<your_key_generated_by_server>'}
+  end
 ```
 #### Server adapter
 There is implemented server side application as Engine, so best is to use it:
 https://github.com/ezrondre/perfdashboard
+
+### Speedup toolbar
+In developement you can see the speedup toolbar at bottom of your page.
+It is available for all your request ( even for redirected and ajax ones ) and shows information from all allowed collectors.
+
+You can disable it by, or set some css styles - for now just an zindex, but there are expected more options.
+```ruby
+  config.speedup.show_bar = false
+
+  config.speedup.css[:zindex] = 10
+```
 
 ### What information you get?
 Well that depends on what collectors you allow.

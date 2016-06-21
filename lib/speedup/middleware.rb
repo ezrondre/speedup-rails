@@ -115,7 +115,7 @@ module Speedup
                 bottom: 5px;
                 right: 5px;
                 min-width: 250px;
-                z-index: #{Speedup.css[:zindex]};
+                z-index: #{Speedup.css[:zindex] || 10};
                 color: initial;
                 font-family: initial;
                 letter-spacing: initial;
