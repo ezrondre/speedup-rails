@@ -14,7 +14,7 @@ module SpeedupRails
     end
 
     def rubyprof
-      send_file Rails.root.join('tmp', 'rubyprof', params[:id] + params[:prof_id]), :type => 'text/html', :disposition => 'inline'
+      send_file Rails.root.join('tmp', 'rubyprof', params[:id] + params[:prof_id].to_s + '.html'), :type => 'text/html', :disposition => 'inline'
     end
 
   end

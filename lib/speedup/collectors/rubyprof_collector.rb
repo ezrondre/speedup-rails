@@ -48,7 +48,7 @@ module Speedup
 
         # Print a flat profile to text
         printer = printer_klass.new(result)
-        ::File.open(@results_dir.join( Speedup.request.id + result_id.to_s ), 'wb') do |file|
+        ::File.open(@results_dir.join( Speedup.request.id + result_id.to_s + '.html' ), 'wb') do |file|
           printer.print(file)
         end
       end
