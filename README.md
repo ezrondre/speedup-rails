@@ -24,6 +24,18 @@ gem 'speedup-rails'
 
 ## Usage
 
+### Configuration
+
+You can configure speedup-rails trough the environment files, or yml file in Rails.root/config/speedup-rails.yml
+with format:
+```yaml
+development:
+  disabled_collectors:
+    - bullet
+```
+
+In file you can disable collector like:
+
 ### Choosing a storage
 In development environment all you have to do is include a gem in your Gemfile.
 But you can wish to choose an adapter for storing a request data.
