@@ -42,6 +42,18 @@ module SpeedupRails
     end
 
     initializer 'speedup.set_configs' do |app|
+      file = Rails.root.join('config', 'speedup-rails.yml')
+      if File.exists?(file)
+        file_config = YAML.load_file(file)[Rails.env]
+        if file_config.is_a?(Hash)
+          disable = file_config.delete('disabled_collectors')
+          file_config.each do |key, val|
+            app.config.speedup.send(key.to_s+'=', val)
+          end
+          Array(disable).each{|to_dis| app.config.speedup.collectors.delete(to_dis.to_sym) }
+        end
+      end
+
       ActiveSupport.on_load(:speedup) do
         app.config.speedup.each do |k,v|
           send "#{k}=", v
