@@ -72,7 +72,7 @@ module SpeedupRails
     end
 
     initializer "speedup.add_middleware" do |app|
-      app.middleware.insert_after 'ActionDispatch::RequestId', 'Speedup::Middleware'
+      app.middleware.insert_after ActionDispatch::RequestId, Speedup::Middleware
     end
 
   end
